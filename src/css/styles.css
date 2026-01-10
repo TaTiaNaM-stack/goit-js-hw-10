@@ -166,7 +166,7 @@ fieldset:hover, fieldset:active{
 
 legend{
   position: relative;
-  left: 24px;
+  left: -124px;
 }
 
 .radio-label{
