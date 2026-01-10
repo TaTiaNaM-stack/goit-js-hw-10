@@ -155,6 +155,7 @@ fieldset{
   width: 365px;
   height: 78px;
   gap: 48px;
+  padding: 8px 8px 8px 24px;
   margin-bottom: 24px;
   border: #757575 1px solid;
   border-radius: 4px;
@@ -162,11 +163,6 @@ fieldset{
 
 fieldset:hover, fieldset:active{
   border: #000 1px solid;
-}
-
-legend{
-  position: relative;
-  left: -124px;
 }
 
 .radio-label{
@@ -196,4 +192,23 @@ button[type="submit"]{
 
 button[type="submit"]:hover{
   background-color: #6c8cff;
+}
+
+.alert{
+  height: 64px;
+  width: 383px;
+  position: fixed;
+  top: 150px;
+  right: 20px;
+  margin: 0;
+  background-color: #fff;
+  color: #2a2a2a;
+  border: 1px solid #2e2f42;
+  border-radius: 4px;
+  user-select: none;
+  cursor: pointer;
+  transform: translateX(calc(100% * 20px));
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
 }
