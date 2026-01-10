@@ -15,22 +15,51 @@ const options = {
   },
 };
 
-const NOTIFICATION_DELAY = 3000;
-let timeoutId = null;
-const notification = document.querySelector('.js-alert');
+// 
+const datePicker = flatpickr("#datetime-picker", options);
 
-showNotification();
+const startBtn = document.querySelector('[data-start]');
+startBtn.disabled = true;
+const alertEl = document.querySelector('.js-alert');
 
-function showNotificationClick() {}
+datePicker.config.onClose.push(function(selectedDates) {
+  const selectedDate = selectedDates[0];
+  const currentDate = new Date();
+  if (selectedDate <= currentDate) {
+    alertEl.textContent = 'Please choose a date in the future';
+    startBtn.disabled = true;
+  } else {
+    alertEl.textContent = '';
+    startBtn.disabled = false;
+  }
+});
 
-function showNotification() {
-  notification.classList.add('visible');
+let userSelectedDate = null;
 
-  setTimeout(() => {
-    notification.classList.remove('visible');
-}, NOTIFICATION_DELAY);
+datePicker.config.onClose.push(function(selectedDates) {
+  userSelectedDate = selectedDates[0];
+});
 
-console.log('Timer module initialized');
+startBtn.addEventListener('click', function() {
+  if (!userSelectedDate) {
+    return;
+  }   
+  const intervalId = setInterval(function() {
+    const currentTime = new Date();
+    const timeDifference = userSelectedDate - currentTime;
+    if (timeDifference <= 0) {
+      clearInterval(intervalId);
+      updateTimerDisplay(0, 0, 0, 0);
+      return;
+    }
+    const { days, hours, minutes, seconds } = convertMs(timeDifference);
+    updateTimerDisplay(days, hours, minutes, seconds);
+  }, 1000);
+});
+
+function updateTimerDisplay(days, hours, minutes, seconds) {
+  document.querySelector('[data-days]').textContent = addLeadingZero(days);
+  document.querySelector('[data-hours]').textContent = addLeadingZero(hours);
+  document.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
+  document.querySelector('[data-seconds]').textContent = addLeadingZero(seconds);
 }
-
-function hideNotification() {}
