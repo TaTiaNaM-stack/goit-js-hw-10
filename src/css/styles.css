@@ -107,10 +107,10 @@ button:disabled{
   cursor: not-allowed;
 }
 
-button:hover{
+/* button:hover{
   background-color: #6c8cff;
   color: #ffffff;
-}
+} */
 
 
 /* Snackbar */
