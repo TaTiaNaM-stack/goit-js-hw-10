@@ -59,7 +59,7 @@ startBtn.addEventListener('click', () => {
   }, 1000);
 
   startBtn.disabled = true;
-  datePicker.input.disabled = true;
+  datePicker.input.disabled = false;
 
 });
 
