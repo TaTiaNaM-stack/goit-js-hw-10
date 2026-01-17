@@ -52,15 +52,16 @@ startBtn.addEventListener('click', () => {
     if (timeDifference <= 0) {
       clearInterval(intervalId);
       updateTimerDisplay(0, 0, 0, 0);
+      datePicker.input.disabled = false;
       return;
     }
     const { days, hours, minutes, seconds } = convertMs(timeDifference);
     updateTimerDisplay(days, hours, minutes, seconds);
+     startBtn.disabled = true;
+     datePicker.input.disabled = true;
   }, 1000);
 
-  startBtn.disabled = true;
-  datePicker.input.disabled = false;
-
+ 
 });
 
   datePicker.input.disabled = false;
