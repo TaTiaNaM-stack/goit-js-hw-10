@@ -1,5 +1,4 @@
 import iziToast from "izitoast";
-
 import "izitoast/dist/css/iziToast.min.css";
 
 const btnSubmit = document.querySelector('button[type="submit"]');
@@ -8,19 +7,24 @@ const delay = document.querySelector('input[name="delay"]');
 const inputFulfilled = document.querySelector('input[value="fulfilled"]');
 const inputRejected = document.querySelector('select[value="rejected"]');
 
-btnSubmit.addEventListener('click', () => {
-    const promise = new Promise((resolve, reject) => {
+const promise = new Promise((resolve, reject) => {
         delay = Number(delay.value); 
-        if (isNaN(delay) || delay < 0) {
+        if (isNaN(delay) || delay <= 0) {
             reject('Invalid delay value');
         } else {
-            setTimeout(() => {
+            resolve(`Promise fulfilled in ${delay}ms`);
+        };
+}    
+btnSubmit.addEventListener('submit', () => {
+    if (promise) {
+        setTimeout(() => {
                 resolve
                     inputFulfilled.checked = `✅ Fulfilled promise in ${delay}ms`;
+                reject
                     inputRejected.checked = `❌ Rejected promise in ${delay}ms`;
-            }, delay);
-        }
-    });
+        }, delay);
+    }
+});
     promise
         .then((message) => {
             iziToast.success({  
@@ -36,5 +40,5 @@ btnSubmit.addEventListener('click', () => {
                 position: 'topRight',
             });
         }); 
-});
+
 
