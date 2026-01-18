@@ -7,10 +7,7 @@ const delay = document.querySelector('input[name="delay"]');
 const inputFulfilled = document.querySelector('input[value="fulfilled"]');
 const inputRejected = document.querySelector('select[value="rejected"]');
 
-
-
-btnSubmit.addEventListener('submit', () => {
-    const promise = new Promise((resolve, reject) => {
+ const promise = new Promise((resolve, reject) => {
         delay = Number(delay.value); 
         if (isNaN(delay) || delay <= 0) {
             return ('Invalid delay value');
@@ -22,6 +19,19 @@ btnSubmit.addEventListener('submit', () => {
                     inputRejected.checked = `❌ Rejected promise in ${delay}ms`;
         }, delay)
         }
+        });
+        
+btnSubmit.addEventListener('submit', (promise)).then(() => {
+    return new Promise((resolve, reject) => {
+        const shouldResolve = inputFulfilled.checked;
+        const shouldReject = inputRejected.checked;
+        if (shouldResolve) {
+            resolve(`✅ Fulfilled promise in ${delay}ms`);
+        } else if (shouldReject) {
+            reject(`❌ Rejected promise in ${delay}ms`);
+        } else {
+            reject('No option selected');
+        }  
 })
 .then((message) => {
             iziToast.success({  
@@ -39,7 +49,3 @@ btnSubmit.addEventListener('submit', () => {
         }); 
 
 });
-    
-
-        
-
